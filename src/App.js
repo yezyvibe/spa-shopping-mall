@@ -1,5 +1,6 @@
 import ProductListPage from "./pages/ProductListPage.js";
 import ProductDetailPage from "./pages/ProductDetailPage.js";
+import CartPage from "./pages/CartPage.js";
 import { init } from "./utils/router.js";
 
 export default function App($target) {
@@ -7,6 +8,7 @@ export default function App($target) {
 
   this.route = () => {
     const { pathname } = window.location;
+    $target.innerHTML = ""; //라우팅될 때마다 화면 초기화
     if (pathname === "/web/") {
       // 상품목록페이지 렌더링
       new ProductListPage($target).render();
@@ -16,6 +18,8 @@ export default function App($target) {
         $target,
         productId,
       }).render();
+    } else if (pathname === "/web/cart") {
+      new CartPage($target).render();
     }
   };
 

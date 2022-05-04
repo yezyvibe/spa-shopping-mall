@@ -1,3 +1,6 @@
+import { getItem, setItem } from "../utils/localStorage.js";
+import { routeChange } from "../utils/router.js";
+
 export default function selectedOptions({ $target, initialState }) {
   this.state = initialState;
   const $component = document.createElement("div");
@@ -45,4 +48,25 @@ export default function selectedOptions({ $target, initialState }) {
   this.render();
 
   // 선택 수량 변경하기
+
+  // 주문하기 이벤트 달기 상품 옵션은 this.state.selectedOptions에 담겨 있다
+  $component.addEventListener("click", (e) => {
+    const orderButton = e.target.closest("button");
+    const { selectedOptions } = this.state;
+    if (orderButton) {
+      const cartData = getItem("products_cart", []);
+      setItem(
+        "products_cart",
+        cartData.concat(
+          selectedOptions.map((option) => ({
+            productId: option.productId,
+            optionId: option.optionId,
+            quantity: option.quantity,
+          }))
+        )
+      );
+      // alert("장바구니에 담겼습니다!")
+      routeChange("/web/cart");
+    }
+  });
 }

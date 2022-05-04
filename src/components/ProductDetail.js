@@ -21,7 +21,6 @@ export default function ProductDetail({ $target, initialState }) {
 
   this.render = () => {
     const { product } = this.state;
-    console.log(product);
     // 상품 디테일 정보 보여주는 것까지
     $productDetail.innerHTML = `
       <img src="${product.imageUrl}">
