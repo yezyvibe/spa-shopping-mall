@@ -25,4 +25,5 @@ export default function ProductListPage($target) {
   };
 
   fetchProducts();
+  this.render();
 }

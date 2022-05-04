@@ -1,4 +1,5 @@
 import { routeChange } from "../utils/router.js";
+import { comma } from "../utils/comma.js";
 
 export default function ProductList({ $target, initialState }) {
   this.state = initialState; // state에는 상품 목록이 객체 배열로 담겨 있다.
@@ -21,7 +22,7 @@ export default function ProductList({ $target, initialState }) {
         <img src=${product.imageUrl}>
           <div class="Product__info">
             <div>${product.name}</div>
-            <div>${product.price}</div>
+            <div>${comma(product.price)}원 ~</div>
           </div>
       </li>
     `

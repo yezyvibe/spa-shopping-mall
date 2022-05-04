@@ -11,18 +11,21 @@ export default function App($target) {
     $target.innerHTML = ""; //라우팅될 때마다 화면 초기화
     if (pathname === "/web/") {
       // 상품목록페이지 렌더링
-      new ProductListPage($target).render();
+      new ProductListPage($target);
     } else if (pathname.substring(0, 14) === "/web/products/") {
       const [, , , productId] = pathname.split("/");
       new ProductDetailPage({
         $target,
         productId,
-      }).render();
+      });
     } else if (pathname === "/web/cart") {
-      new CartPage($target).render();
+      new CartPage($target);
     }
   };
 
   init(this.route);
   this.route();
+
+  //뒤로가기
+  window.addEventListener("popstate", this.route);
 }

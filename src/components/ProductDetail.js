@@ -1,4 +1,5 @@
 import SelectedOptions from "./SelectedOptions.js";
+import { comma } from "../utils/comma.js";
 
 export default function ProductDetail({ $target, initialState }) {
   this.state = initialState;
@@ -14,6 +15,7 @@ export default function ProductDetail({ $target, initialState }) {
     if (selectedOp) {
       // selectedOp에 값이 할당된 이후에 상태값 변경해주기
       selectedOp.setState({
+        ...this.state,
         selectedOptions: this.state.selectedOptions,
       });
     }
@@ -26,7 +28,7 @@ export default function ProductDetail({ $target, initialState }) {
       <img src="${product.imageUrl}">
       <div class="ProductDetail__info">
         <h2>${product.name}</h2>
-        <div class="ProductDetail__price">${product.price}원~</div>
+        <div class="ProductDetail__price">${comma(product.price)}원~</div>
         <select>
           <option>선택하세요.</option>
           ${product.productOptions
@@ -36,7 +38,7 @@ export default function ProductDetail({ $target, initialState }) {
                   option.stock === 0 ? "disabled" : ""
                 }> ${option.stock === 0 ? "(품절) " : ""}
               ${product.name} ${option.name} ${
-                  option.price === 0 ? "" : `(+${option.price}원)`
+                  option.price === 0 ? "" : `(+${comma(option.price)}원)`
                 }</option>`
             )
             .join("")}
@@ -61,7 +63,6 @@ export default function ProductDetail({ $target, initialState }) {
     if (e.target.tagName === "SELECT") {
       const selectedOptionId = parseInt(e.target.value);
       const { product, selectedOptions } = this.state;
-      console.log(product, selectedOptions);
       const option = product.productOptions.find(
         (option) => option.id === selectedOptionId
       ); // 얘는 방금 선택한 옵션
